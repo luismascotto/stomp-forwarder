@@ -2,41 +2,16 @@ package forwarder
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/kardianos/osext"
 	"github.com/spf13/viper"
 )
 
-type Configuration struct {
-	FromAmqpFullUri    string
-	ToAmqpFullUri      string
-	FromTopicName      string
-	ToTopicName        string
-	SupressLogRepeater bool
-	SupressLogSender   bool
-	SupressLogReceiver bool
-	StartAsync         bool
-}
+func StompForwarder() {
+	var Config Configuration
 
-type EventMessage struct {
-	EventType string `json:"eventType"`
-	EventData string `json:"eventData"`
-}
-
-const (
-	// When reconnecting to the server after connection failure
-	ReconnectDelay = 2 * time.Second
-
-	// When setting up the topic after a connectio exception
-	ResubscribeDelay = 2 * time.Second
-)
-
-var Config Configuration
-
-func main() {
 	if err := ReadSettings(&Config); err != nil {
-		fmt.Println("Error reading settings")
+		fmt.Println("Error reading settings config.json: ", err)
 		return
 	}
 

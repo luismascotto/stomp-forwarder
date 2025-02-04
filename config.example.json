@@ -1,0 +1,10 @@
+{
+    "fromAmqpFullUri": "stomp://admin:password@amqqtest.server.com:61613",
+    "toAmqpFullUri": "stomp://admin:password@127.0.0.1:61613",
+    "fromDestination": "/topic/errorMessagesFromRemoteServer",
+    "toDestination": "/queue/Relay",
+    "supressLogRepeater": false,
+    "supressLogSender": false,
+    "supressLogReceiver": false,
+    "startAsync": false
+}

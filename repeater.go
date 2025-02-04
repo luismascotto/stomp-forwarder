@@ -15,12 +15,12 @@ type MessageRepeater struct {
 }
 
 func NewMessageRepeater(config *Configuration) *MessageRepeater {
-	reader := NewMessageConsumer(config.FromAmqpFullUri, config.FromTopicName, config.SupressLogReceiver)
+	reader := NewMessageConsumer(config.FromAmqpFullUri, config.FromDestination, config.SupressLogReceiver)
 	if reader == nil {
 		fmt.Println("Error creating consumer")
 		return nil
 	}
-	writer := NewMessageProducer(config.ToAmqpFullUri, config.ToTopicName, config.SupressLogSender)
+	writer := NewMessageProducer(config.ToAmqpFullUri, config.ToDestination, config.SupressLogSender)
 	if writer == nil {
 		fmt.Println("Error creating producer")
 		return nil

@@ -4,6 +4,31 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"time"
+)
+
+type Configuration struct {
+	FromAmqpFullUri    string `json:"fromAmqpFullUri"`
+	ToAmqpFullUri      string `json:"toAmqpFullUri"`
+	FromDestination    string `json:"fromDestination"`
+	ToDestination      string `json:"toDestination"`
+	SupressLogRepeater bool   `json:"supressLogRepeater"`
+	SupressLogSender   bool   `json:"supressLogSender"`
+	SupressLogReceiver bool   `json:"supressLogReceiver"`
+	StartAsync         bool   `json:"startAsync"`
+}
+
+type EventMessage struct {
+	EventType string `json:"eventType"`
+	EventData string `json:"eventData"`
+}
+
+const (
+	// When reconnecting to the server after connection failure
+	ReconnectDelay = 2 * time.Second
+
+	// When setting up the topic after a connectio exception
+	ResubscribeDelay = 2 * time.Second
 )
 
 func extractUserPassHost(fullUri string) (string, string, string, error) {
