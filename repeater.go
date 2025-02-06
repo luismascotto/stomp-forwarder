@@ -42,6 +42,7 @@ func (mr *MessageRepeater) Start() {
 	go mr.Reader.Start()
 
 	mr.sendMsgToLog("Waiting for connections")
+	startTime := time.Now()
 WaitFullConnection:
 	for {
 		select {
@@ -51,8 +52,14 @@ WaitFullConnection:
 			if mr.Reader.IsConnected() && mr.Writer.IsConnected() {
 				break WaitFullConnection
 			}
+			if time.Since(startTime) > 30*time.Second {
+				mr.sendMsgToLog("Timeout waiting for both connections to be established")
+				mr.Reader.Shutdown()
+				mr.Writer.Shutdown()
+				return
+			}
 			mr.sendMsgToLog("@")
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(500 * time.Millisecond)
 		}
 	}
 
