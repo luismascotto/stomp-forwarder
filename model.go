@@ -27,7 +27,7 @@ const (
 	// When reconnecting to the server after connection failure
 	ReconnectDelay = 2 * time.Second
 
-	// When setting up the topic after a connectio exception
+	// When setting up the topic after a connection exception
 	ResubscribeDelay = 2 * time.Second
 )
 

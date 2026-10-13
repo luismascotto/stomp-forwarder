@@ -127,7 +127,7 @@ func (mc *MessageConsumer) listenTopicAMQP() bool {
 	for {
 		chDelivery, err := mc.initConsumeAMQP()
 		if err != nil {
-			mc.sendMsgToLog(fmt.Sprintf("Falha ao receber: %s. Retrying...", err.Error()))
+			mc.sendMsgToLog(fmt.Sprintf("Failed to receive: %s. Retrying...", err.Error()))
 
 			if strings.Contains(err.Error(), "connection closed") {
 				mc.sendMsgToLog(fmt.Sprintf("connection closed listenTopicAMQP err"))
